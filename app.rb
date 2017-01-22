@@ -31,12 +31,14 @@ patch '/users/:id' do
   @user.to_json
 end
 
-post '/users/check' do
+post '/users/login' do
   payload = JSON.parse(request.body.read).symbolize_keys
   @user = User.find_by(email: payload[:email])
 
   if Digest::MD5.hexdigest(payload[:password]) == @user[:password_hash]
     status 200
+    content_type :json
+    @user.to_json
   else
     status 401
   end
