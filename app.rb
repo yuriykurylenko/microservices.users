@@ -22,6 +22,7 @@ patch '/users/:id' do
   payload = JSON.parse(request.body.read).symbolize_keys
   @user = User.find(params[:id])
   @user.update_attribute(:email, payload[:email]) if payload[:email]
+  @user.update_attribute(:role, payload[:role]) if payload[:role]
   @user.update_attribute(:fname, payload[:fname]) if payload[:fname]
   @user.update_attribute(:lname, payload[:lname]) if payload[:lname]
   @user.update_attribute(:birthday, payload[:birthday]) if payload[:birthday]
